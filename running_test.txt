@@ -1,0 +1,160 @@
+** Sequential
+mpiuser@SIT315-Head:~/Desktop/Cloud$ g++ sequential.cpp -o sequential -O3
+mpiuser@SIT315-Head:~/Desktop/Cloud$ ./sequential 500
+N = 500 | Time = 0.0922051 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ ./sequential 1000
+
+N = 1000 | Time = 0.797998 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ 
+mpiuser@SIT315-Head:~/Desktop/Cloud$ ./sequential 2000
+N = 2000 | Time = 12.551 s | Correct = Yes
+
+**omp
+mpiuser@SIT315-Head:~/Desktop/Cloud$ ./omp 500 2
+N = 500 | Threads = 2 | Time = 0.0507775 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ ./omp 500 4
+N = 500 | Threads = 4 | Time = 0.0270649 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ ./omp 1000 2
+N = 1000 | Threads = 2 | Time = 0.394149 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ ./omp 1000 4
+N = 1000 | Threads = 4 | Time = 0.214495 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ ./omp 2000 2
+N = 2000 | Threads = 2 | Time = 5.80243 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ ./omp 2000 4
+N = 2000 | Threads = 4 | Time = 3.46437 s | Correct = Yes
+
+**MPI
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi 500
+N = 500 | Processes = 2 | Time = 0.0675323 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi 500
+N = 500 | Processes = 2 | Time = 0.065137 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 4 ./mpi 500
+N = 500 | Processes = 4 | Time = 0.0439092 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 4 ./mpi 500
+
+N = 500 | Processes = 4 | Time = 0.0511204 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi 1000
+N = 1000 | Processes = 2 | Time = 0.57464 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi 1000
+N = 1000 | Processes = 2 | Time = 0.600777 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 4 ./mpi 1000
+N = 1000 | Processes = 4 | Time = 0.42445 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 4 ./mpi 1000
+N = 1000 | Processes = 4 | Time = 0.378236 s | Correct = Yes
+
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi 2000
+N = 2000 | Processes = 2 | Time = 6.92377 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 4 ./mpi 2000
+N = 2000 | Processes = 4 | Time = 4.55957 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 4 ./mpi 2000
+N = 2000 | Processes = 4 | Time = 4.10905 s | Correct = Yes
+
+stress test:
+mpiuser@SIT315-Head:~/Desktop/Cloud$ time mpirun -f cluster -np 4 ./mpi 10000
+
+^C[mpiexec@SIT315-Head] Sending Ctrl-C to processes as requested
+[mpiexec@SIT315-Head] Press Ctrl-C again to force abort
+
+real	11m34.103s
+user	23m3.136s
+sys	0m2.931s
+mpiuser@SIT315-Head:~/Desktop/Cloud$ time mpirun -f cluster -np 4 ./mpi 5000
+N = 5000 | Processes = 4 | Time = 183.369 s | Correct = Yes
+
+real	3m4.124s
+user	6m6.090s
+sys	0m0.715s
+
+** MPI+ OMP
+
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 500 4
+N = 500 | Processes = 2 | Threads = 4 | Time = 0.0521646 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 500 4
+N = 500 | Processes = 2 | Threads = 4 | Time = 0.0321787 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 500 6
+N = 500 | Processes = 2 | Threads = 6 | Time = 0.0587573 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 500 6
+N = 500 | Processes = 2 | Threads = 6 | Time = 0.0649386 s | Correct = Yes
+
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 1000 4
+N = 1000 | Processes = 2 | Threads = 4 | Time = 0.204937 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 1000 4
+N = 1000 | Processes = 2 | Threads = 4 | Time = 0.22012 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 1000 6
+N = 1000 | Processes = 2 | Threads = 6 | Time = 0.284089 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 1000 6
+N = 1000 | Processes = 2 | Threads = 6 | Time = 0.264005 s | Correct = Yes
+
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 2000 4
+N = 2000 | Processes = 2 | Threads = 4 | Time = 3.27883 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 2000 4
+N = 2000 | Processes = 2 | Threads = 4 | Time = 3.22601 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 2000 6
+N = 2000 | Processes = 2 | Threads = 6 | Time = 3.12179 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 2000 6
+N = 2000 | Processes = 2 | Threads = 6 | Time = 3.23061 s | Correct = Yes
+
+stress test:
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_omp 5000 4
+N = 5000 | Processes = 2 | Threads = 4 | Time = 117.132 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ time mpirun -f cluster -np 2 ./mpi_omp 10000 4
+^C[mpiexec@SIT315-Head] Sending Ctrl-C to processes as requested
+[mpiexec@SIT315-Head] Press Ctrl-C again to force abort
+
+real	11m31.158s
+user	45m35.755s
+sys	0m3.097s
+
+** MPI + OCLmpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_ocl 500
+Rank 0: GPU not found. Using CPU instead.
+Rank 1: GPU not found. Using CPU instead.
+N = 500 | Processes = 2 | Time = 0.893463 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_ocl 500
+Rank 0: GPU not found. Using CPU instead.
+Rank 1: GPU not found. Using CPU instead.
+N = 500 | Processes = 2 | Time = 0.134403 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_ocl 500
+Rank 1: GPU not found. Using CPU instead.
+Rank 0: GPU not found. Using CPU instead.
+N = 500 | Processes = 2 | Time = 0.145958 s | Correct = Yes
+
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_ocl 1000
+
+Rank 0: GPU not found. Using CPU instead.
+Rank 1: GPU not found. Using CPU instead.
+N = 1000 | Processes = 2 | Time = 0.223551 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_ocl 1000
+Rank 0: GPU not found. Using CPU instead.
+Rank 1: GPU not found. Using CPU instead.
+N = 1000 | Processes = 2 | Time = 0.183245 s | Correct = Yes
+
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_ocl 2000
+Rank 0: GPU not found. Using CPU instead.
+Rank 1: GPU not found. Using CPU instead.
+N = 2000 | Processes = 2 | Time = 0.980827 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_ocl 2000
+Rank 0: GPU not found. Using CPU instead.
+Rank 1: GPU not found. Using CPU instead.
+N = 2000 | Processes = 2 | Time = 0.941505 s | Correct = Yes
+
+Stress test
+mpiuser@SIT315-Head:~/Desktop/Cloud$ mpirun -f cluster -np 2 ./mpi_ocl 5000
+Rank 0: GPU not found. Using CPU instead.
+Rank 1: GPU not found. Using CPU instead.
+N = 5000 | Processes = 2 | Time = 19.9162 s | Correct = Yes
+mpiuser@SIT315-Head:~/Desktop/Cloud$ time mpirun -f cluster -np 2 ./mpi_ocl 10000
+Rank 0: GPU not found. Using CPU instead.
+Rank 1: GPU not found. Using CPU instead.
+N = 10000 | Processes = 2 | Time = 214.882 s | Correct = Yes
+
+mpiuser@SIT315-Head:~/Desktop/Cloud$ time mpirun -f cluster -np 2 ./mpi_ocl 15000
+Rank 1: GPU not found. Using CPU instead.
+Rank 0: GPU not found. Using CPU instead.
+^C[mpiexec@SIT315-Head] Sending Ctrl-C to processes as requested
+[mpiexec@SIT315-Head] Press Ctrl-C again to force abort
+
+real	7m22.519s
+user	26m51.855s
+sys	0m32.704s
+
+
